@@ -15,21 +15,21 @@
                             <form action="{{ route('canines.update', $canine->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
-                                <label for="name" class="block">
+                                <label for="name" class="block pt-2">
                                     <span class="text-gray-700">Name:</span>
                                     <input type="text" name="name" value="{{ old('name') ?? $canine->name }}" class="mt-1 block w-full rounded">
                                     @error('name')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="breed" class="block">
+                                <label for="breed" class="block pt-2">
                                     <span class="text-gray-700">Breed:</span>
                                     <input type="text" name="breed" value="{{ old('breed') ?? $canine->breed }}" class="mt-1 block w-full rounded">
                                     @error('breed')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="gender" class="block">
+                                <label for="gender" class="block pt-2">
                                     <span class="text-gray-700">Gender:</span>
                                     <select name="gender" id="gender" class="mt-1 block w-full rounded"s>
                                         <option value="{{ $canine->gender }}">{{ $canine->gender }}</option>
@@ -40,21 +40,21 @@
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="mixed" class="block">
+                                <label for="mixed" class="block pt-2">
                                     <span class="text-gray-700">Mixed:</span>
                                     <input type="checkbox" name="mixed" value="{{ old('mixed') }}" class="mt-1 block w-full rounded" @if($canine->mixed) checked @endif>
                                     @error('mixed')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="active" class="block">
+                                <label for="active" class="block pt-2">
                                     <span class="text-gray-700">Active:</span>
                                     <input type="checkbox" name="active" value="{{ old('active') }}" class="mt-1 block w-full rounded" @if ($canine->active) checked @endif>
                                     @error('active')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="user_id" class="block">
+                                <label for="user_id" class="block pt-2">
                                     <span class="text-gray-700">Owner:</span>
                                     <select name="user_id" class="mt-1 block w-full rounded">
                                         <option value="{{ $canine->user->id }}">{{ $canine->user->name }}</option>
@@ -66,7 +66,7 @@
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <label for="profile_upload" class="block">
+                                <label for="profile_upload" class="block pt-2">
                                     <span class="text-gray-700">Upload Profile Image:</span>
                                     <input type="file" accept="image/*" name="profile_upload" class="mt-1 block w-full rounded">
                                     <span class="text-gray-600 text-sm">Files must be less than 3MB in size</span>
@@ -75,7 +75,7 @@
                                     @enderror
                                 </label>
                                 <h3 class="text-xl">Or</h3>
-                                <label for="profile_url" class="block">
+                                <label for="profile_url" class="block pt-2">
                                     <span class="text-gray-700">Enter a URL to a Photo:</span>
                                     <input type="text" name="profile_url" value="{{ old('profile_url') }}" class="mt-1 block w-full rounded">
                                     @error('profile_url')

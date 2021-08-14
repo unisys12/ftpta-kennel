@@ -15,56 +15,56 @@
                                 @method('patch')
                                 <fieldset class="border-2 border-gray-800 p-3">
                                     <legend class="font-bold text-xl text-gray-800">Personal Information</legend>
-                                    <label for="name" class="block">
+                                    <label for="name" class="block pt-2">
                                         <span class="text-gray-700">User Name:</span>
                                         <input type="text" name="name" value="{{ old('name') ?? $user->name }}" class="mt-1 block w-full rounded">
                                         @error('name')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="email" class="block">
+                                    <label for="email" class="block pt-2">
                                         <span class="text-gray-700">User Email:</span>
                                         <input type="text" name="email" value="{{ old('email') ?? $user->email }}" class="mt-1 block w-full rounded">
                                         @error('email')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="address" class="block">
+                                    <label for="address" class="block pt-2">
                                         <span class="text-gray-700">User Address:</span>
                                         <input type="text" name="address" value="{{ old('address') ?? $user->address }}" class="mt-1 block w-full rounded">
                                         @error('address')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="city" class="block">
+                                    <label for="city" class="block pt-2">
                                         <span class="text-gray-700">User City:</span>
                                         <input type="text" name="city" value="{{ old('city') ?? $user->city }}" class="mt-1 block w-full rounded">
                                         @error('city')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="state" class="block">
+                                    <label for="state" class="block pt-2">
                                         <span class="text-gray-700">User State:</span>
                                         <input type="text" name="state" value="{{ old('state') ?? $user->state }}" class="mt-1 block w-full rounded">
                                         @error('state')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="zip" class="block">
+                                    <label for="zip" class="block pt-2">
                                         <span class="text-gray-700">User Zip:</span>
                                         <input type="text" name="zip" value="{{ old('zip') ?? $user->zip }}" class="mt-1 block w-full rounded">
                                         @error('zip')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="phone" class="block">
+                                    <label for="phone" class="block pt-2">
                                         <span class="text-gray-700">User Phone:</span>
                                         <input type="tel" name="phone" value="{{ old('phone') ?? $user->phone }}" class="mt-1 block w-full rounded">
                                         @error('phone')
                                             <span class="text-red-700 mt-1">{{ $message }}</span>
                                         @enderror
                                     </label>
-                                    <label for="profile_upload" class="block">
+                                    <label for="profile_upload" class="block pt-2">
                                         <span class="text-gray-700">Upload Profile Image:</span>
                                         <input type="file" accept="image/*" name="profile_upload" class="mt-1 block w-full rounded">
                                         @error('profile_upload')
@@ -72,7 +72,7 @@
                                         @enderror
                                     </label>
                                     <h3 class="text-xl">Or</h3>
-                                    <label for="profile_url" class="block">
+                                    <label for="profile_url" class="block pt-2">
                                         <span class="text-gray-700">Enter a URL to a Photo:</span>
                                         <input type="text" name="profile_url" value="{{ old('profile_url') ?? $user->profile_url }}" class="mt-1 block w-full rounded">
                                         @error('profile_url')
