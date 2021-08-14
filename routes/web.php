@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CanineController;
+use App\Models\Canine;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -19,11 +20,16 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Returns all users and the number of canines
+    // $users = User::withCount('canines')->get();
+    $users = User::count();
+    $canines = Canine::count();
+    return view('dashboard', compact('users', 'canines'));
 })->middleware(['auth'])->name('dashboard');
 
 // Users
