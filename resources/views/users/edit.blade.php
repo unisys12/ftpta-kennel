@@ -103,7 +103,7 @@
                                     @enderror
                                 </fieldset>
 
-                                <button type="submit" class="mt-4 py-1 px-3 text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-50 rounded">Update Role</button>
+                                <button type="submit" class="mt-4 py-1 px-3 text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-50 rounded">Update {{ $user->name }}'s Profile</button>
                             </form>
                             <div class="mt-4">
                                 <p class="italic">User Passwords cannot be changed from this interface!</p>

@@ -74,14 +74,14 @@
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                {{-- <h3 class="text-xl">Or</h3>
+                                <h3 class="text-xl">Or</h3>
                                 <label for="profile_url" class="block">
                                     <span class="text-gray-700">Enter a URL to a Photo:</span>
                                     <input type="text" name="profile_url" value="{{ old('profile_url') }}" class="mt-1 block w-full rounded">
                                     @error('profile_url')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
-                                </label> --}}
+                                </label>
                                 <button type="submit" class="mt-2 py-1 px-3 text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-50 rounded">Update Canine</button>
                             </form>
                         </div>

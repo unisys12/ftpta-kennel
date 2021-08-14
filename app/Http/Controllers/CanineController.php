@@ -45,7 +45,7 @@ class CanineController extends Controller
             'breed' => 'required',
             'gender' => 'required',
             'profile_url' => 'nullable',
-            'profile_upload' => 'nullable',
+            'profile_upload' => 'nullable|mimes:jpg,png,webp',
             'mixed' => 'nullable',
             'active' => 'nullable',
             'user_id' => 'required'
@@ -75,9 +75,7 @@ class CanineController extends Controller
             // Profile Image Logic
             if ($request->hasFile('profile_upload')) {
                 if ($request->file('profile_upload')->isValid()) {
-                    $canine->profile_url = $request->profile_upload->store('canine_images/' . $request->name, 's3');
-                } else {
-                    $canine->profile_url = $request->profile_url;
+                    $canine->profile_url = $request->profile_upload->store('/canine_images/' . $request->name);
                 }
             }
 
@@ -128,7 +126,7 @@ class CanineController extends Controller
             'breed' => 'required',
             'gender' => 'required',
             'profile_upload' => 'nullable',
-            // 'profile_url' => 'nullable',
+            'profile_url' => 'nullable',
             'mixed' => 'nullable',
             'active' => 'nullable',
             'user_id' => 'required'
@@ -148,21 +146,22 @@ class CanineController extends Controller
 
             // If no profile image provided, set default image
             //
-            // if (!$request->input('profile_url') && !$request->hasFile('profile_upload')) {
-            //     $canine->profile_url = asset('storage/canine_images/paw.svg');
-            // }
+            if (!$request->input('profile_url') && !$request->hasFile('profile_upload')) {
+                $canine->profile_url = asset('storage/canine_images/paw.svg');
+            }
 
             // Set URL to image if it is hosted somewhere else
             //
-            // if ($request->input('profile_url')) {
-            //     $canine->profile_url = $request->input('profile_url');
-            // }
+            if ($request->input('profile_url')) {
+                $canine->profile_url = $request->input('profile_url');
+            }
 
             // Profile Image Logic
             //
             if ($request->hasFile('profile_upload')) {
                 if ($request->file('profile_upload')->isValid()) {
-                    $canine->profile_url = Storage::disk('s3')->put('canine_images/' . $request->name, $request->file('profile_url'));
+                    // $canine->profile_url = Storage::disk('s3')->put('canine_images/' . $request->name, $request->file('profile_url'));
+                    $canine->profile_url = Storage::put('/canine_images/' . $request->name, $request->file('profile_upload'));
                 } else {
                     $canine->profile_url = $request->profile_url;
                 }

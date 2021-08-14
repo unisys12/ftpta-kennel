@@ -47,7 +47,15 @@
                             </div>
                         </div>
                         <div class="pt-4 place-self-end">
-                            <img src="{{ asset('storage/'.$canine->profile_url) }}" alt="{{ $canine->name }}'s profile image" class="rounded-lg filter shadow-lg" width="300px">
+                            <img
+                            @if (!str_starts_with($canine->profile_url, 'http'))
+                            src="{{ asset('/storage/' . $canine->profile_url) }}"
+                            @else
+                            src="{{ $canine->profile_url }}"
+                            @endif
+                            alt="{{ $canine->name }}'s profile image"
+                            class="rounded-lg filter shadow-lg"
+                            width="300px">
                         </div>
                     </div>
                 </div>

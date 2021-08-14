@@ -40,6 +40,7 @@ class UserController extends Controller
             'state' => 'required',
             'zip' => 'required',
             'profile_url' => 'nullable',
+            'profile_upload' => 'nullable|mimes:jpg,png,webp',
             'phone' => 'nullable',
             'roles' => 'required|min:1'
         ];
@@ -59,7 +60,7 @@ class UserController extends Controller
 
             // Set default svg if no image is given
             if (!$request->input('profile_url') && !$request->hasFile('profile_upload')) {
-                $user_to_update->profile_url = asset('storage/profile_images/user.svg');
+                $user_to_update->profile_url = asset('storage/client_images/client_default.svg');
             }
 
             if ($request->input('profile_url')) {
@@ -67,12 +68,8 @@ class UserController extends Controller
             }
 
             // User Profile Image Logic
-            if ($request->hasFile('profile_upload')) {
-                if ($request->file('profile_upload')->isValid()) {
-                    $user_to_update->profile_url = $request->profile_upload->store('profile_images');
-                } else {
-                    $user_to_update->profile_url = $request->profile_url;
-                }
+            if ($request->hasFile('profile_upload') && $request->file('profile_upload')->isValid()) {
+                $user_to_update->profile_url = $request->profile_upload->store('client_images');
             }
 
             $user_to_update->save();
