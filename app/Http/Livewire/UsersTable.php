@@ -43,10 +43,11 @@ class UsersTable extends PowerGridComponent
             ->addColumn('city')
             ->addColumn('state')
             ->addColumn('zip')
-            ->addColumn('phone')
-            // ->addColumn('updated_at_formatted', function (User $model) {
-            //     return Carbon::parse($model->updated_at)->format('d/m/Y H:i:s');
-            // })
+            ->addColumn('roles', function (User $user) {
+                foreach ($user->roles as $role) {
+                    return $role->name;
+                }
+            })
             ->addColumn('created_at_formatted', function (User $model) {
                 return Carbon::parse($model->created_at)->format('d/m/Y H:i:s');
             });
@@ -96,8 +97,9 @@ class UsersTable extends PowerGridComponent
                 ->searchable(),
 
             Column::add()
-                ->title(__('PHONE'))
-                ->field('phone')
+                ->title(__('ROLES'))
+                ->field('roles')
+                ->sortable()
                 ->searchable(),
 
             Column::add()
