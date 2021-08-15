@@ -140,8 +140,8 @@ class CanineController extends Controller
             $canine->name = $request->name;
             $canine->breed = $request->breed;
             $canine->gender = $request->gender;
-            $canine->mixed = $request->mixed;
-            $canine->active = $request->active;
+            $canine->mixed = $request->boolean('mixed');
+            $canine->active = $request->boolean('active');
             $canine->user_id = $request->user_id;
 
             // If no profile image provided, set default image

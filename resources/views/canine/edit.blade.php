@@ -42,14 +42,14 @@
                                 </label>
                                 <label for="mixed" class="block pt-2">
                                     <span class="text-gray-700">Mixed:</span>
-                                    <input type="checkbox" name="mixed" value="{{ old('mixed') }}" class="mt-1 block w-full rounded" @if($canine->mixed) checked @endif>
+                                    <input type="checkbox" name="mixed" class="mt-1 block w-full rounded" @if($canine->mixed) checked @endif>
                                     @error('mixed')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror
                                 </label>
                                 <label for="active" class="block pt-2">
                                     <span class="text-gray-700">Active:</span>
-                                    <input type="checkbox" name="active" value="{{ old('active') }}" class="mt-1 block w-full rounded" @if ($canine->active) checked @endif>
+                                    <input type="checkbox" name="active" class="mt-1 block w-full rounded" @if ($canine->active) checked @endif>
                                     @error('active')
                                         <span class="text-red-700 mt-1">{{ $message }}</span>
                                     @enderror

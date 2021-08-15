@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Canine;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -12,13 +13,14 @@ use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
-class UsersTable extends PowerGridComponent
+class CaninesTable extends PowerGridComponent
 {
     use ActionButton;
 
     public function setUp()
     {
-        $this->showPerPage()
+        $this->showCheckBox()
+            ->showPerPage()
             ->showExportOption('download', ['excel', 'csv'])
             ->showSearchInput();
     }
@@ -28,9 +30,14 @@ class UsersTable extends PowerGridComponent
         return null;
     }
 
+    public function relationSearch(): array
+    {
+        return [];
+    }
+
     public function dataSource(): ?Builder
     {
-        return User::query();
+        return Canine::query();
     }
 
     public function addColumns(): ?PowerGridEloquent
@@ -38,16 +45,21 @@ class UsersTable extends PowerGridComponent
         return PowerGrid::eloquent()
             ->addColumn('id')
             ->addColumn('name')
-            ->addColumn('email')
-            ->addColumn('address')
-            ->addColumn('city')
-            ->addColumn('state')
-            ->addColumn('zip')
-            ->addColumn('phone')
-            // ->addColumn('updated_at_formatted', function (User $model) {
-            //     return Carbon::parse($model->updated_at)->format('d/m/Y H:i:s');
-            // })
-            ->addColumn('created_at_formatted', function (User $model) {
+            ->addColumn('breed')
+            ->addColumn('gender', function (Canine $canine) {
+                return $canine->gender . "<span class='text-2xl pl-1'>&$canine->gender;</span>";
+            })
+            ->addColumn('mixed', function (Canine $canine) {
+                return $canine->mixed == 0 ? "<span>&cross;</span>" : "<span>&check;</span>";
+            })
+            ->addColumn('active', function (Canine $canine) {
+                return $canine->active == 0 ? "<span>&cross;</span>" : "<span>&check;</span>";
+            })
+            ->addColumn('user_id', function (Canine $canine) {
+                return $canine->user->name;
+            })
+            ->addColumn('created_at')
+            ->addColumn('created_at_formatted', function (Canine $model) {
                 return Carbon::parse($model->created_at)->format('d/m/Y H:i:s');
             });
     }
@@ -58,62 +70,56 @@ class UsersTable extends PowerGridComponent
             Column::add()
                 ->title(__('ID'))
                 ->field('id')
-                ->sortable()
-                ->searchable(),
-
-            Column::add()
-                ->title(__('NAME'))
-                ->field('name')
-                ->sortable()
-                ->searchable(),
-
-            Column::add()
-                ->title(__('EMAIL'))
-                ->field('email')
-                ->searchable(),
-
-            Column::add()
-                ->title(__('ADDRESS'))
-                ->field('address')
-                ->searchable(),
-
-            Column::add()
-                ->title(__('CITY'))
-                ->field('city')
-                ->sortable()
-                ->searchable(),
-
-            Column::add()
-                ->title(__('STATE'))
-                ->field('state')
-                ->sortable()
-                ->searchable(),
-
-            Column::add()
-                ->title(__('ZIP'))
-                ->field('zip')
-                ->sortable()
-                ->searchable(),
-
-            Column::add()
-                ->title(__('PHONE'))
-                ->field('phone')
-                ->searchable(),
-
-            Column::add()
-                ->title(__('CREATED AT'))
-                ->field('created_at_formatted')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker('created_at'),
+                ->sortable(),
 
-            // Column::add()
-            //     ->title(__('UPDATED AT'))
-            //     ->field('updated_at_formatted')
-            //     ->searchable()
-            //     ->sortable()
-            //     ->makeInputDatePicker('updated_at'),
+            Column::add()
+                ->title(__('Name'))
+                ->field('name')
+                ->searchable()
+                ->makeInputText('name')
+                ->sortable(),
 
+            Column::add()
+                ->title(__('Breed'))
+                ->field('breed')
+                ->searchable()
+                ->sortable(),
+
+            Column::add()
+                ->title(__('Gender'))
+                ->field('gender')
+                ->searchable()
+                ->sortable(),
+
+            Column::add()
+                ->title(__('Mixed'))
+                ->field('mixed')
+                ->searchable()
+                ->sortable(),
+
+            Column::add()
+                ->title(__('Active'))
+                ->field('active')
+                ->searchable()
+                ->sortable(),
+
+            Column::add()
+                ->title(__('Owner'))
+                ->field('user_id')
+                ->searchable()
+                ->sortable(),
+
+            Column::add()
+                ->title(__('Created at'))
+                ->field('created_at')
+                ->hidden(),
+
+            Column::add()
+                ->title(__('Created at'))
+                ->field('created_at_formatted')
+                ->makeInputDatePicker('created_at')
+                ->searchable()
         ];
     }
 
@@ -130,13 +136,13 @@ class UsersTable extends PowerGridComponent
         return [
             Button::add('edit')
                 ->caption(__('Edit'))
-                ->class('bg-indigo-500 hover:bg-indigo-600 text-gray-100 hover:text-white transition rounded p-2 mr-2')
-                ->route('users.edit', ['user' => 'id']),
+                ->class('bg-indigo-500 hover:bg-indigo-600 text-gray-100 hover:text-white transition rounded p-2')
+                ->route('canines.edit', ['canine' => 'id']),
 
             Button::add('destroy')
                 ->caption(__('Delete'))
                 ->class('bg-red-500 hover:bg-red-600 text-gray-100 hover:text-white transition rounded p-2')
-                ->route('users.destroy', ['user' => 'id'])
+                ->route('canines.destroy', ['canine' => 'id'])
                 ->method('delete')
         ];
     }
@@ -152,8 +158,17 @@ class UsersTable extends PowerGridComponent
     /*
     public function update(array $data ): bool
     {
+       // filter example with symbols
+       // if ($data['field'] == 'price_BRL') {
+       //       $data['field'] = 'price';
+       //       $data['value'] = Str::of($data['value'])
+       //           ->replace('.', '')
+       //           ->replace(',', '.')
+       //           ->replaceMatches('/[^Z0-9\.]/', '');
+       //}
+
        try {
-           $updated = User::query()->find($data['id'])->update([
+           $updated = Canine::query()->find($data['id'])->update([
                 $data['field'] => $data['value']
            ]);
        } catch (QueryException $exception) {
