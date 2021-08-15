@@ -24,12 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Turn this into a component!
 Route::get('/dashboard', function () {
-    // Returns all users and the number of canines
-    // $users = User::withCount('canines')->get();
-    $users = User::count();
-    $canines = Canine::count();
-    return view('dashboard', compact('users', 'canines'));
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 // Users
