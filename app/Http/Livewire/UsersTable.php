@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Role;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,8 @@ class UsersTable extends PowerGridComponent
 
     public function setUp()
     {
-        $this->showPerPage()
+        $this->showCheckBox()
+            ->showPerPage()
             ->showExportOption('download', ['excel', 'csv'])
             ->showSearchInput();
     }
@@ -30,7 +32,14 @@ class UsersTable extends PowerGridComponent
 
     public function dataSource(): ?Builder
     {
-        return User::query();
+        return User::query()->with('roles');
+    }
+
+    public function relationSearch(): array
+    {
+        return [
+            'roles' => ['name']
+        ];
     }
 
     public function addColumns(): ?PowerGridEloquent
@@ -44,6 +53,7 @@ class UsersTable extends PowerGridComponent
             ->addColumn('state')
             ->addColumn('zip')
             ->addColumn('roles', function (User $user) {
+
                 foreach ($user->roles as $role) {
                     return $role->name;
                 }
