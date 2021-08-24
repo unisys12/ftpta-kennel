@@ -160,8 +160,8 @@ class CanineController extends Controller
             //
             if ($request->hasFile('profile_upload')) {
                 if ($request->file('profile_upload')->isValid()) {
-                    // $canine->profile_url = Storage::disk('s3')->put('canine_images/' . $request->name, $request->file('profile_url'));
-                    $canine->profile_url = Storage::put('/canine_images/' . $request->name, $request->file('profile_upload'));
+                    $canine->profile_url = Storage::disk('s3')->put('canine_images/' . $request->name, $request->file('profile_url'));
+                    // $canine->profile_url = Storage::put('/canine_images/' . $request->name, $request->file('profile_upload'));
                 } else {
                     $canine->profile_url = $request->profile_url;
                 }
