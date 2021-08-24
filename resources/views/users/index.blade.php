@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('FTPTA Kennel') }} > Users
-        </h2>
+        <div class="text-sm breadcrumbs">
+            <ul>
+                <li><a href="{{ route('dashboard') }}">{{ __('FTPTA Kennel') }}</a></li>
+                <li>Users</li>
+            </ul>
+        </div>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -19,7 +22,7 @@
                 @if($role->name == "Admin")
                 <div class="">
                     <a href="{{ route('createUser') }}">
-                        <button class="mt-2 py-1 px-3 text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-50 rounded">
+                        <button class="btn btn-primary">
                             Register New User
                         </button>
                     </a>

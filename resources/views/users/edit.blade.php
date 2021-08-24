@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('FTPTA Kennel') }} > <a href="{{ route('users.index') }}">Users</a> > Edit
-        </h2>
+        <div class="text-sm breadcrumbs">
+            <ul>
+                <li><a href="{{ route('dashboard') }}">{{ __('FTPTA Kennel') }}</a></li>
+                <li><a href="{{ route('users.index') }}">Users</a></li>
+                <li>Edit {{ $user->name }}'s Profile</li>
+            </ul>
+        </div>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
