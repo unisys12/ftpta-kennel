@@ -142,12 +142,12 @@ class UsersTable extends PowerGridComponent
         return [
             Button::add('edit')
                 ->caption(__('Edit'))
-                ->class('bg-indigo-500 hover:bg-indigo-600 text-gray-100 hover:text-white transition rounded p-2 mr-2')
+                ->class('btn btn-primary')
                 ->route('users.edit', ['user' => 'id']),
 
             Button::add('destroy')
                 ->caption(__('Delete'))
-                ->class('bg-red-500 hover:bg-red-600 text-gray-100 hover:text-white transition rounded p-2')
+                ->class('btn btn-warning')
                 ->route('users.destroy', ['user' => 'id'])
                 ->method('delete')
         ];
