@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Canine;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -160,8 +161,8 @@ class CanineController extends Controller
             //
             if ($request->hasFile('profile_upload')) {
                 if ($request->file('profile_upload')->isValid()) {
-                    $canine->profile_url = Storage::disk('s3')->put('canine_images/' . $request->name, $request->file('profile_url'));
-                    // $canine->profile_url = Storage::put('/canine_images/' . $request->name, $request->file('profile_upload'));
+                    $aws_url = Storage::putFile('canine_images/' . $request->name, new File($request->file('profile_upload')), 'public');
+                    $canine->profile_url = env('AWS_S3_URI') . "/" . $aws_url;
                 } else {
                     $canine->profile_url = $request->profile_url;
                 }

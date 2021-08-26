@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -70,8 +71,8 @@ class UserController extends Controller
 
             // User Profile Image Logic
             if ($request->hasFile('profile_upload') && $request->file('profile_upload')->isValid()) {
-                // $user_to_update->profile_url = $request->profile_upload->store('client_images');
-                $user_to_update->profile_url = Storage::disk('s3')->put('client_images/' . $request->name, $request->file('profile_url'));
+                $aws_url = Storage::putFile('client_images/' . $request->name, new File($request->file('profile_upload')), 'public');
+                $user_to_update->profile_url = env('AWS_S3_URI') . "/" . $aws_url;
             }
 
             $user_to_update->save();
