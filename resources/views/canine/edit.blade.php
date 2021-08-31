@@ -89,6 +89,9 @@
                                 <button type="submit" class="mt-2 py-1 px-3 text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-50 rounded">Update Canine</button>
                             </form>
                         </div>
+                        <div class="grid grid-cols-1 gap-6">
+                            @livewire('upload-document', ['canine' => $canine])
+                        </div>
                     </div>
                 </div>
             </div>

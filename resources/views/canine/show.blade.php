@@ -62,6 +62,14 @@
                             width="300px">
                         </div>
                     </div>
+                    {{-- Documents Display --}}
+                    <div class="mt-6">
+                        <hr>
+                        <header class="mt-2">
+                            <h2 class="text-4xl">Documents</h2>
+                        </header>
+                        @livewire('document-types-display-component')
+                    </div>
                 </div>
             </div>
             <div class="">

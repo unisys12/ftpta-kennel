@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CanineController;
+use App\Http\Controllers\DocumentController;
 use App\Models\Canine;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,5 +43,8 @@ Route::resource('/dashboard/roles', RoleController::class)->middleware(['auth'])
 
 // Canines
 Route::resource('/dashboard/canines', CanineController::class)->middleware(['auth']);
+
+// Documents
+Route::resource('/dashboard/documents', DocumentController::class)->middleware(['auth']);
 
 require __DIR__ . '/auth.php';
